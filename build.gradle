@@ -1,0 +1,95 @@
+/*buildscript {
+    ext {
+        springBootVersion = '2.1.9.RELEASE'
+        querydslVersion = '1.0.10'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:${querydslVersion}")
+    }
+}*/
+
+/*apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'*/
+//apply plugin: 'com.ewerk.gradle.plugins.querydsl'
+//apply plugin: 'com.ewerk.gradle.plugins.querydsl'
+
+plugins {
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    // Querydsl 플러그인 추가
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+group 'com.shoppingTest'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+//def querydslDir = 'src/main/generated'
+def querydslDir = "$buildDir/generated"
+
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', querydslDir]
+        }
+    }
+}
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    implementation 'com.oracle.database.jdbc:ojdbc8:19.3.0.0'
+    implementation group: 'com.oracle.ojdbc', name: 'orai18n', version: '19.3.0.0'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Querydsl 플러그인 추가
+    implementation 'com.querydsl:querydsl-jpa:4.4.0'
+    implementation 'com.querydsl:querydsl-apt:4.4.0'
+    implementation 'com.querydsl:querydsl-core:4.4.0'
+    implementation 'com.querydsl:querydsl-codegen:4.4.0'
+
+    // 설정 메타 정보 제공을 위한 라이브러리 의존 관계 정의
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+
+}
+
+test {
+    useJUnitPlatform()
+}
