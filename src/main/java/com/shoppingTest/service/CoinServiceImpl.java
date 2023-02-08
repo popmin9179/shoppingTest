@@ -7,7 +7,6 @@ import com.shoppingTest.repository.ChargeCoinRepository;
 import com.shoppingTest.repository.MemberRepository;
 import com.shoppingTest.repository.PayCoinRepository;
 import lombok.RequiredArgsConstructor;
-import org.graalvm.compiler.loop.InductionVariable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
