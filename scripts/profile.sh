@@ -33,6 +33,6 @@ function find_idle_port()
     then
       echo "8081"
     else
-      echo "8081"
+      echo "8082"
     fi
 }
