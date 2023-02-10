@@ -34,7 +34,7 @@ repositories {
 }
 
 group 'com.shoppingTest'
-version '1.0-SNAPSHOT'
+version '1.0-SNAPSHOT-'+new Date().format("yyyyMMddHHmmss")
 sourceCompatibility = 1.8
 
 //def querydslDir = 'src/main/generated'
